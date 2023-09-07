@@ -23,7 +23,7 @@ def holamundo():
 # Envío de datos a través de JSON
 @servidorWeb.route('/modelo', methods=['POST'])
 def modeloPrediccion():
-    contenido = request.json()
+    contenido = request.json
     print(contenido)
     return jsonify({'resultado': "Hola"})
 
