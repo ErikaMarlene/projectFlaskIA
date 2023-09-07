@@ -39,5 +39,23 @@ def modeloPrediccion():
     return jsonify({'resultado': str(resultado[0])})
 
 
+@servidorWeb.route('/modeloForm', methods=['POST'])
+def modeloForm():
+    contenido = request.form
+    print(contenido)
+    datosEntrada = np.array([
+        # Estos valores son fijos de las otras variables
+        0.88, 0, 2.6, 0.098, 25, 67, 0.9968, 1, 0.4,
+        contenido['pH'],
+        contenido['sulphates'],
+        contenido['alcohol']
+    ])
+    # Utilizar el modelo para predecir
+    # El predictos sirve para predecir un dato, por eso el reshape
+    resultado = dt.predict(datosEntrada.reshape(1, -1))
+    # El modelo nos va a dar la salida del clasificador
+    return jsonify({'resultado': str(resultado[0])})
+
+
 if __name__ == '__main__':
-    servidorWeb.run(debug=False,host='0.0.0.0',port='8080')
+    servidorWeb.run(debug=False, host='0.0.0.0', port='8080')
